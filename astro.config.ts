@@ -21,7 +21,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   site: 'https://tagsou.github.io',
-   base: '/mysite',
+   base: '/myWebsite',
   integrations: [
     expressiveCode({
       themes: ['github-light', 'github-dark'],
