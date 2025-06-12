@@ -161,9 +161,8 @@ Now we sitting in a weird conundrum in order to get xss we have to get the windo
 this is the url decoded version of the payload for readability :
 
 ```javascript
-<iframe name="admin"`
-        `src="/render?bio=<script src="/static/users.js"></script>&js=alert()>`
-`</iframe>```
+<iframe name="admin" src="/render?bio=<script src="/static/users.js"></script>&js=alert()></iframe>
+```
 
 
 At this point we were stuck on fully bypassing the CSP until my team mate had an interesting idea of brute forcing the flag.
