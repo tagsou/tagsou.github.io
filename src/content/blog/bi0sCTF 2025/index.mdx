@@ -150,7 +150,7 @@ because apparently [MongoDB sort keys lexicographically](https://www.mongodb.com
 ## Main objective
 
 It seemed like the main objective to getting the admin bots cookie was to figure out how to set the main window to `window.name = "admin"`
-and to allow our `?js=payload `to reach the` eval()` sink and get xss.
+and to allow our `?js=payload` to reach the` eval()` sink and get xss.
 My first idea was to try [Dom-clobbering](https://portswigger.net/web-security/dom-based/dom-clobbering) since we have html injection however it wont be possible because it isnt used in the Dom so it isn't a property of the Dom and can only be changed with js execution. 
 Now we sitting in a weird conundrum in order to get xss we have to get the window.name to "admin" but it can only be changed with js execution itself ???!!! 
 
@@ -167,7 +167,7 @@ this is the url decoded version of the payload for readability :
 
 At this point we were stuck on fully bypassing the CSP until my team mate had an interesting idea of brute forcing the flag.
 since we only figured out how to execute JavaScript in the sites origin we can : 
-- inject xss payload that triggers in the admins browser. The payload  will register users with a known password and with a username for each character in flag and position with ASCII since only alphanumeric characters are allowed (ex., if a flags character is in position `N=2`with the `b`  char, which is ASCII 98, it registers a user with username `"CC98"`) .Now we know at what position a certain character is in the flag. We can send a payload like this:  ```
+- inject xss payload that triggers in the admins browser. The payload  will register users with a known password and with a username for each character in flag and position with ASCII since only alphanumeric characters are allowed (ex., if a flags character is in position `N=2`with the `b`  char, which is ASCII 98, it registers a user with username `"CC98"`) .Now we know at what position a certain character is in the flag. We can send a payload like this:
 ```javascript 
 fetch('/register', {
 
