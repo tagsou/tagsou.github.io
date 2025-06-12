@@ -7,7 +7,7 @@ export const SITE: Site = {
   href: '',
   author: 'sou_tag',
   locale: 'en-US',
-  featuredPostCount: 2,
+  featuredPostCount: 3,
   postsPerPage: 3,
 }
 
