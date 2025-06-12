@@ -131,10 +131,7 @@ result = users_collection.update_one({"username": username}, {"$set": data})
 This means that `$set:data` will update the users data with all fields in the JSON including any extra keys 
 
 The alphanumeric check only checks data in` bio` . So If we send a payload like this with a `&` :
-  `{`
-`"bio": "hello",`
-  `"&bio": "<h1>helloo hi browserr</h1>"`
-`}`  to /update_bio we should be able to succesfully inject Html that will render when a users bio is viewed . I had to test this locally since only admins can view users bio : 
+`{ "bio": "hello", "&bio": "<h1>helloo hi browser</h1>" }` to /update_bio we should be able to succesfully inject Html that will render when a users bio is viewed . I had to test this locally since only admins can view users bio : 
 
 ![Alt text for the image](./htmlinjection.png)
 
