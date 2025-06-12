@@ -160,7 +160,8 @@ Now we sitting in a weird conundrum in order to get xss we have to get the windo
 
 this is the url decoded version of the payload for readability :
 
-```<iframe name="admin"`
+```javascript
+<iframe name="admin"`
         `src="/render?bio=<script src="/static/users.js"></script>&js=alert()>`
 `</iframe>```
 
@@ -168,7 +169,7 @@ this is the url decoded version of the payload for readability :
 At this point we were stuck on fully bypassing the CSP until my team mate had an interesting idea of brute forcing the flag.
 since we only figured out how to execute JavaScript in the sites origin we can : 
 - inject xss payload that triggers in the admins browser. The payload  will register users with a known password and with a username for each character in flag and position with ASCII since only alphanumeric characters are allowed (ex., if a flags character is in position `N=2`with the `b`  char, which is ASCII 98, it registers a user with username `"CC98"`) .Now we know at what position a certain character is in the flag. We can send a payload like this:  ```
-```javsvcript 
+```javascript 
 fetch('/register', {
 
   method: 'POST',
