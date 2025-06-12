@@ -2,7 +2,7 @@
 title: 'bi0sCTF 2025'
 description: 'writeups for bi0sCTF 2025'
 date: 2025-06-09
-image: './banner2.png'
+image: './banner3.png'
     
 ---
 
@@ -131,7 +131,9 @@ result = users_collection.update_one({"username": username}, {"$set": data})
 This means that `$set:data` will update the users data with all fields in the JSON including any extra keys 
 
 The alphanumeric check only checks data in` bio` . So If we send a payload like this with a `&` :
-"{ "bio": "hello", "amp;bio": "<h1>helloo hi browser</h1>" }" to /update_bio we should be able to succesfully inject Html that will render when a users bio is viewed . I had to test this locally since only admins can view users bio : 
+```json
+{ "bio": "hello", "amp;bio": "<h1>helloo hi browser</h1>" }
+``` to /update_bio we should be able to succesfully inject Html that will render when a users bio is viewed . I had to test this locally since only admins can view users bio : 
 
 ![Alt text for the image](./htmlinjection.png)
 
@@ -281,3 +283,4 @@ Something I wasn't aware of was that you can redirect to about:srcdoc  in a Ifra
 - you can redirect to srcdoc in a iframe in chrome
 - Hmtl entities can bypass filters and regex
 
+}
