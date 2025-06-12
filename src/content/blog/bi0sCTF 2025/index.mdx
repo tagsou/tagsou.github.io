@@ -188,7 +188,7 @@ fetch('/register', {
 
 
 - since we know the password we can now blindly brute force the flag by trying to brute force logging in and after every successful login attempt we can construct the flag. At first I thought this would crash the server but its very trivial since the attempts needed isnt much (about =<3000 attempts ). We can do this easily with a python script :  
-```
+```python
 import string
 import threading
 import requests
@@ -228,6 +228,7 @@ for i in range(80):  # Adjust 80 as needed for flag length
 
 print(''.join(flag))
 ```
+
 
 - after running the python script in the terminal we should see the flag form :) 
  ``` bash
