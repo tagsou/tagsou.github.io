@@ -151,7 +151,7 @@ because apparently [MongoDB sort keys lexicographically](https://www.mongodb.com
 
 It seemed like the main objective to getting the admin bots cookie was to figure out how to set the main window to `window.name = "admin"`
 and to allow our `?js=payload` to reach the` eval()` sink and get xss.
-My first idea was to try [Dom-clobbering](https://portswigger.net/web-security/dom-based/dom-clobbering) since we have html injection however it wont be possible because it isnt used in the Dom so it isn't a property of the Dom and can only be changed with js execution. 
+My first idea was to try [Dom-clobbering](https://portswigger.net/web-security/dom-based/dom-clobbering) since we have html injection however it wont be possible because all our input is put in a Iframe so it wont reference the main window and can only be changed with js execution. 
 Now we sitting in a weird conundrum in order to get xss we have to get the window.name to "admin" but it can only be changed with js execution itself ???!!! 
 
 
